@@ -150,3 +150,52 @@ Changes not staged for commit:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git addv.[K[K .
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	[32mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
+
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commu[Kit -m 'remove file'
+[master 35ab6b7] remove file
+ 1 file changed, 54 insertions(+)
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push
+Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
+Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
+Enumerating objects: 11, done.
+Counting objects:   9% (1/11)   Counting objects:  18% (2/11)   Counting objects:  27% (3/11)   Counting objects:  36% (4/11)   Counting objects:  45% (5/11)   Counting objects:  54% (6/11)   Counting objects:  63% (7/11)   Counting objects:  72% (8/11)   Counting objects:  81% (9/11)   Counting objects:  90% (10/11)   Counting objects: 100% (11/11)   Counting objects: 100% (11/11), done.
+Delta compression using up to 4 threads
+Compressing objects:  16% (1/6)   Compressing objects:  33% (2/6)   Compressing objects:  50% (3/6)   Compressing objects:  66% (4/6)   Compressing objects:  83% (5/6)   Compressing objects: 100% (6/6)   Compressing objects: 100% (6/6), done.
+Writing objects:  16% (1/6)   Writing objects:  33% (2/6)   Writing objects:  50% (3/6)   Writing objects:  66% (4/6)   Writing objects:  83% (5/6)   Writing objects: 100% (6/6)   Writing objects: 100% (6/6), 1.47 KiB | 1.47 MiB/s, done.
+Total 6 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+To github.com:alexrblohm/Predictive_Analytics
+   280254c..35ab6b7  master -> master
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
+.				.git				Predictive Analytics.Rproj
+..				.gitignore
+.Rproj.user			PA_HW1.Rmd
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ vim .i[Kgitignore 
+[?2004h]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
+	[31mmodified:   .Rproj.user/3C650BBB/console06/INDEX001[m
+	[31mmodified:   .gitignore[m
+
+no changes added to commit (use "git add" and/or "git commit -a")
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
