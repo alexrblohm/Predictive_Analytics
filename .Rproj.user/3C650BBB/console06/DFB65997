@@ -199,3 +199,23 @@ Changes not staged for commit:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commit '[K-m 'fix'
+[master bf04559] fix
+ 3 files changed, 52 insertions(+), 2 deletions(-)
+ rewrite .Rproj.user/3C650BBB/console06/INDEX001 (71%)
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push
+Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
+Enumerating objects: 15, done.
+Counting objects:   6% (1/15)   Counting objects:  13% (2/15)   Counting objects:  20% (3/15)   Counting objects:  26% (4/15)   Counting objects:  33% (5/15)   Counting objects:  40% (6/15)   Counting objects:  46% (7/15)   Counting objects:  53% (8/15)   Counting objects:  60% (9/15)   Counting objects:  66% (10/15)   Counting objects:  73% (11/15)   Counting objects:  80% (12/15)   Counting objects:  86% (13/15)   Counting objects:  93% (14/15)   Counting objects: 100% (15/15)   Counting objects: 100% (15/15), done.
+Delta compression using up to 4 threads
+Compressing objects:  14% (1/7)   Compressing objects:  28% (2/7)   Compressing objects:  42% (3/7)   Compressing objects:  57% (4/7)   Compressing objects:  71% (5/7)   Compressing objects:  85% (6/7)   Compressing objects: 100% (7/7)   Compressing objects: 100% (7/7), done.
+Writing objects:  12% (1/8)   Writing objects:  25% (2/8)   Writing objects:  37% (3/8)   Writing objects:  50% (4/8)   Writing objects:  62% (5/8)   Writing objects:  75% (6/8)   Writing objects:  87% (7/8)   Writing objects: 100% (8/8)   Writing objects: 100% (8/8), 1.10 KiB | 41.00 KiB/s, done.
+Total 8 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
+To github.com:alexrblohm/Predictive_Analytics
+   35ab6b7..bf04559  master -> master
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git rm -r .Rproj.user
+error: the following file has local modifications:
+    .Rproj.user/3C650BBB/console06/DFB65997
+(use --cached to keep the file, or -f to force removal)
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
