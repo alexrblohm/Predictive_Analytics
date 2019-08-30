@@ -1,0 +1,18 @@
+]0;~/LUC/Fall19/Predictive Analytics[?1034hMacBook-Pro-3:Predictive Analytics alexblohm$ [KMacBook-Pro-3:Predictive Analytics alexblohm$ pwd
+/Users/alexblohm/LUC/Fall19/Predictive Analytics
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls
+Predictive Analytics.Rproj
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
+.				.Rproj.user
+..				Predictive Analytics.Rproj
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ vim .gitignore
+[?2004h]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls
+Predictive Analytics.Rproj
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
+.				.Rproj.user			Predictive Analytics.Rproj
+..				.gitignore
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ [KMacBook-Pro-3:Predictive Analytics alexblohm$ ls
+PA_HW1.Rmd			Predictive Analytics.Rproj
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git init
+Initialized empty Git repository in /Users/alexblohm/LUC/Fall19/Predictive Analytics/.git/
+]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
