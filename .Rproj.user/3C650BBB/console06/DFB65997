@@ -1,221 +1,0 @@
-]0;~/LUC/Fall19/Predictive Analytics[?1034hMacBook-Pro-3:Predictive Analytics alexblohm$ [KMacBook-Pro-3:Predictive Analytics alexblohm$ pwd
-/Users/alexblohm/LUC/Fall19/Predictive Analytics
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls
-Predictive Analytics.Rproj
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
-.				.Rproj.user
-..				Predictive Analytics.Rproj
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ vim .gitignore
-[?2004h]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls
-Predictive Analytics.Rproj
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
-.				.Rproj.user			Predictive Analytics.Rproj
-..				.gitignore
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ [KMacBook-Pro-3:Predictive Analytics alexblohm$ ls
-PA_HW1.Rmd			Predictive Analytics.Rproj
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git init
-Initialized empty Git repository in /Users/alexblohm/LUC/Fall19/Predictive Analytics/.git/
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commit -m 'Init'
-[master (root-commit) 7aa1c1f] Init
- 13 files changed, 139 insertions(+)
- create mode 100644 .Rproj.user/3C650BBB/console06/DFB65997
- create mode 100644 .Rproj.user/3C650BBB/console06/DFB65997.env
- create mode 100644 .Rproj.user/3C650BBB/console06/INDEX001
- create mode 100644 .Rproj.user/3C650BBB/sources/prop/F6EB83E1
- create mode 100644 .Rproj.user/3C650BBB/sources/prop/INDEX
- create mode 100644 .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C
- create mode 100644 .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C-contents
- create mode 100644 .Rproj.user/3C650BBB/sources/s-7FCBEE21/lock_file
- create mode 100644 .Rproj.user/shared/notebooks/B293B882-PA_HW1/1/s/chunks.json
- create mode 100644 .Rproj.user/shared/notebooks/patch-chunk-names
- create mode 100644 .Rproj.user/shared/notebooks/paths
- create mode 100644 .gitignore
- create mode 100644 PA_HW1.Rmd
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git remote add origin git@github.com:username/new_repo[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kalexrblohm/Predictive [K_Analytics
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push -u origin master
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-ERROR: Repository not found.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push -u origin master
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-ERROR: Repository not found.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git remote add origin https://github.com/username/new_repo[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kalexrblohm/Predictive_Analytic s
-fatal: remote origin already exists.
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git reset head
-Unstaged changes after reset:
-M	.Rproj.user/3C650BBB/console06/DFB65997
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git init
-Reinitialized existing Git repository in /Users/alexblohm/LUC/Fall19/Predictive Analytics/.git/
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commit -m "[K'Init'
-[master 9ec4710] Init
- 1 file changed, 40 insertions(+)
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git remote add origin https://github.com/alexrblohm/Predictive_Analytic s.git
-fatal: remote origin already exists.
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push -u origin master
-Warning: Permanently added the RSA host key for IP address '140.82.113.3' to the list of known hosts.
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enumerating objects: 30, done.
-Counting objects:   3% (1/30)   Counting objects:   6% (2/30)   Counting objects:  10% (3/30)   Counting objects:  13% (4/30)   Counting objects:  16% (5/30)   Counting objects:  20% (6/30)   Counting objects:  23% (7/30)   Counting objects:  26% (8/30)   Counting objects:  30% (9/30)   Counting objects:  33% (10/30)   Counting objects:  36% (11/30)   Counting objects:  40% (12/30)   Counting objects:  43% (13/30)   Counting objects:  46% (14/30)   Counting objects:  50% (15/30)   Counting objects:  53% (16/30)   Counting objects:  56% (17/30)   Counting objects:  60% (18/30)   Counting objects:  63% (19/30)   Counting objects:  66% (20/30)   Counting objects:  70% (21/30)   Counting objects:  73% (22/30)   Counting objects:  76% (23/30)   Counting objects:  80% (24/30)   Counting objects:  83% (25/30)   Counting objects:  86% (26/30)   Counting objects:  90% (27/30)   Counting objects:  93% (28/30)   Counting objects:  96% (29/30)   Counting objects: 100% (30/30)   Counting objects: 100% (30/30), done.
-Delta compression using up to 4 threads
-Compressing objects:   4% (1/24)   Compressing objects:   8% (2/24)   Compressing objects:  12% (3/24)   Compressing objects:  16% (4/24)   Compressing objects:  20% (5/24)   Compressing objects:  25% (6/24)   Compressing objects:  29% (7/24)   Compressing objects:  33% (8/24)   Compressing objects:  37% (9/24)   Compressing objects:  41% (10/24)   Compressing objects:  45% (11/24)   Compressing objects:  50% (12/24)   Compressing objects:  54% (13/24)   Compressing objects:  58% (14/24)   Compressing objects:  62% (15/24)   Compressing objects:  66% (16/24)   Compressing objects:  70% (17/24)   Compressing objects:  75% (18/24)   Compressing objects:  79% (19/24)   Compressing objects:  83% (20/24)   Compressing objects:  87% (21/24)   Compressing objects:  91% (22/24)   Compressing objects:  95% (23/24)   Compressing objects: 100% (24/24)   Compressing objects: 100% (24/24), done.
-Writing objects:   3% (1/30)   Writing objects:   6% (2/30)   Writing objects:  10% (3/30)   Writing objects:  13% (4/30)   Writing objects:  16% (5/30)   Writing objects:  20% (6/30)   Writing objects:  23% (7/30)   Writing objects:  26% (8/30)   Writing objects:  30% (9/30)   Writing objects:  33% (10/30)   Writing objects:  36% (11/30)   Writing objects:  40% (12/30)   Writing objects:  43% (13/30)   Writing objects:  46% (14/30)   Writing objects:  50% (15/30)   Writing objects:  53% (16/30)   Writing objects:  56% (17/30)   Writing objects:  60% (18/30)   Writing objects:  63% (19/30)   Writing objects:  66% (20/30)   Writing objects:  70% (21/30)   Writing objects:  73% (22/30)   Writing objects:  76% (23/30)   Writing objects:  80% (24/30)   Writing objects:  83% (25/30)   Writing objects:  86% (26/30)   Writing objects:  90% (27/30)   Writing objects:  93% (28/30)   Writing objects:  96% (29/30)   Writing objects: 100% (30/30)   Writing objects: 100% (30/30), 4.60 KiB | 87.00 KiB/s, done.
-Total 30 (delta 1), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), done.[K
-To github.com:alexrblohm/Predictive_Analytics
- * [new branch]      master -> master
-Branch 'master' set up to track remote branch 'master' from 'origin'.
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-	[31mmodified:   .Rproj.user/3C650BBB/sources/prop/F6EB83E1[m
-	[31mmodified:   .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C[m
-	[31mmodified:   .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C-contents[m
-	[31mmodified:   .Rproj.user/shared/notebooks/B293B882-PA_HW1/1/s/chunks.json[m
-	[31mmodified:   PA_HW1.Rmd[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	[31m.Rproj.user/shared/notebooks/B293B882-PA_HW1/1/3C650BBB7FCBEE21/[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	[32mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-	[32mmodified:   .Rproj.user/3C650BBB/sources/prop/F6EB83E1[m
-	[32mmodified:   .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C[m
-	[32mmodified:   .Rproj.user/3C650BBB/sources/s-7FCBEE21/A12E092C-contents[m
-	[32mnew file:   .Rproj.user/shared/notebooks/B293B882-PA_HW1/1/3C650BBB7FCBEE21/chunks.json[m
-	[32mmodified:   .Rproj.user/shared/notebooks/B293B882-PA_HW1/1/s/chunks.json[m
-	[32mmodified:   PA_HW1.Rmd[m
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commit -m 'Test'
-[master 280254c] Test
- 7 files changed, 50 insertions(+), 7 deletions(-)
- create mode 100644 .Rproj.user/shared/notebooks/B293B882-PA_HW1/1/3C650BBB7FCBEE21/chunks.json
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enumerating objects: 33, done.
-Counting objects:   3% (1/33)   Counting objects:   6% (2/33)   Counting objects:   9% (3/33)   Counting objects:  12% (4/33)   Counting objects:  15% (5/33)   Counting objects:  18% (6/33)   Counting objects:  21% (7/33)   Counting objects:  24% (8/33)   Counting objects:  27% (9/33)   Counting objects:  30% (10/33)   Counting objects:  33% (11/33)   Counting objects:  36% (12/33)   Counting objects:  39% (13/33)   Counting objects:  42% (14/33)   Counting objects:  45% (15/33)   Counting objects:  48% (16/33)   Counting objects:  51% (17/33)   Counting objects:  54% (18/33)   Counting objects:  57% (19/33)   Counting objects:  60% (20/33)   Counting objects:  63% (21/33)   Counting objects:  66% (22/33)   Counting objects:  69% (23/33)   Counting objects:  72% (24/33)   Counting objects:  75% (25/33)   Counting objects:  78% (26/33)   Counting objects:  81% (27/33)   Counting objects:  84% (28/33)   Counting objects:  87% (29/33)   Counting objects:  90% (30/33)   Counting objects:  93% (31/33)   Counting objects:  96% (32/33)   Counting objects: 100% (33/33)   Counting objects: 100% (33/33), done.
-Delta compression using up to 4 threads
-Compressing objects:   6% (1/15)   Compressing objects:  13% (2/15)   Compressing objects:  20% (3/15)   Compressing objects:  26% (4/15)   Compressing objects:  33% (5/15)   Compressing objects:  40% (6/15)   Compressing objects:  46% (7/15)   Compressing objects:  53% (8/15)   Compressing objects:  60% (9/15)   Compressing objects:  66% (10/15)   Compressing objects:  73% (11/15)   Compressing objects:  80% (12/15)   Compressing objects:  86% (13/15)   Compressing objects:  93% (14/15)   Compressing objects: 100% (15/15)   Compressing objects: 100% (15/15), done.
-Writing objects:   5% (1/18)   Writing objects:  11% (2/18)   Writing objects:  16% (3/18)   Writing objects:  22% (4/18)   Writing objects:  27% (5/18)   Writing objects:  33% (6/18)   Writing objects:  38% (7/18)   Writing objects:  44% (8/18)   Writing objects:  50% (9/18)   Writing objects:  55% (10/18)   Writing objects:  61% (11/18)   Writing objects:  66% (12/18)   Writing objects:  72% (13/18)   Writing objects:  77% (14/18)   Writing objects:  83% (15/18)   Writing objects:  88% (16/18)   Writing objects:  94% (17/18)   Writing objects: 100% (18/18)   Writing objects: 100% (18/18), 3.08 KiB | 60.00 KiB/s, done.
-Total 18 (delta 2), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
-To github.com:alexrblohm/Predictive_Analytics
-   9ec4710..280254c  master -> master
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git rem[K[Km .Rproj.user
-fatal: not removing '.Rproj.user' recursively without -r
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git rm -r .Rproj.user
-error: the following file has local modifications:
-    .Rproj.user/3C650BBB/console06/DFB65997
-(use --cached to keep the file, or -f to force removal)
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git addv.[K[K .
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	[32mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commu[Kit -m 'remove file'
-[master 35ab6b7] remove file
- 1 file changed, 54 insertions(+)
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enumerating objects: 11, done.
-Counting objects:   9% (1/11)   Counting objects:  18% (2/11)   Counting objects:  27% (3/11)   Counting objects:  36% (4/11)   Counting objects:  45% (5/11)   Counting objects:  54% (6/11)   Counting objects:  63% (7/11)   Counting objects:  72% (8/11)   Counting objects:  81% (9/11)   Counting objects:  90% (10/11)   Counting objects: 100% (11/11)   Counting objects: 100% (11/11), done.
-Delta compression using up to 4 threads
-Compressing objects:  16% (1/6)   Compressing objects:  33% (2/6)   Compressing objects:  50% (3/6)   Compressing objects:  66% (4/6)   Compressing objects:  83% (5/6)   Compressing objects: 100% (6/6)   Compressing objects: 100% (6/6), done.
-Writing objects:  16% (1/6)   Writing objects:  33% (2/6)   Writing objects:  50% (3/6)   Writing objects:  66% (4/6)   Writing objects:  83% (5/6)   Writing objects: 100% (6/6)   Writing objects: 100% (6/6), 1.47 KiB | 1.47 MiB/s, done.
-Total 6 (delta 1), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
-To github.com:alexrblohm/Predictive_Analytics
-   280254c..35ab6b7  master -> master
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ ls -a
-.				.git				Predictive Analytics.Rproj
-..				.gitignore
-.Rproj.user			PA_HW1.Rmd
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ vim .i[Kgitignore 
-[?2004h]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   .Rproj.user/3C650BBB/console06/DFB65997[m
-	[31mmodified:   .Rproj.user/3C650BBB/console06/INDEX001[m
-	[31mmodified:   .gitignore[m
-
-no changes added to commit (use "git add" and/or "git commit -a")
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git commit '[K-m 'fix'
-[master bf04559] fix
- 3 files changed, 52 insertions(+), 2 deletions(-)
- rewrite .Rproj.user/3C650BBB/console06/INDEX001 (71%)
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git push
-Enter passphrase for key '/Users/alexblohm/.ssh/id_rsa': 
-Enumerating objects: 15, done.
-Counting objects:   6% (1/15)   Counting objects:  13% (2/15)   Counting objects:  20% (3/15)   Counting objects:  26% (4/15)   Counting objects:  33% (5/15)   Counting objects:  40% (6/15)   Counting objects:  46% (7/15)   Counting objects:  53% (8/15)   Counting objects:  60% (9/15)   Counting objects:  66% (10/15)   Counting objects:  73% (11/15)   Counting objects:  80% (12/15)   Counting objects:  86% (13/15)   Counting objects:  93% (14/15)   Counting objects: 100% (15/15)   Counting objects: 100% (15/15), done.
-Delta compression using up to 4 threads
-Compressing objects:  14% (1/7)   Compressing objects:  28% (2/7)   Compressing objects:  42% (3/7)   Compressing objects:  57% (4/7)   Compressing objects:  71% (5/7)   Compressing objects:  85% (6/7)   Compressing objects: 100% (7/7)   Compressing objects: 100% (7/7), done.
-Writing objects:  12% (1/8)   Writing objects:  25% (2/8)   Writing objects:  37% (3/8)   Writing objects:  50% (4/8)   Writing objects:  62% (5/8)   Writing objects:  75% (6/8)   Writing objects:  87% (7/8)   Writing objects: 100% (8/8)   Writing objects: 100% (8/8), 1.10 KiB | 41.00 KiB/s, done.
-Total 8 (delta 2), reused 0 (delta 0)
-remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
-To github.com:alexrblohm/Predictive_Analytics
-   35ab6b7..bf04559  master -> master
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git rm -r .Rproj.user
-error: the following file has local modifications:
-    .Rproj.user/3C650BBB/console06/DFB65997
-(use --cached to keep the file, or -f to force removal)
-]0;~/LUC/Fall19/Predictive AnalyticsMacBook-Pro-3:Predictive Analytics alexblohm$ git add .
