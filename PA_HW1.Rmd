@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 #1. 
-Page 52, Ex. 2. 2. Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or pre- diction. Finally, provide n and p.
+Page 52, Ex. 2. Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide n and p.
 
 ##(a) 
 We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.
@@ -25,18 +25,24 @@ We are considering launching a new product and wish to know whether it will be a
 ##(c) 
 We are interesting in predicting the % change in the US dollar in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the dollar, the % change in the US market, the % change in the British market, and the % change in the German market.
 
-```{r}
 
+#2. Page 52, Ex. 4. 
+Parts A and B only.
 
+#3. (UNDERGRAD ONLY) Download the data set ”College” using this link: http://bit.ly/30C2DMz. This file will be in .csv format. Use this data to answer Ex. 8 on page 54.
 
-```
+#4. 
+The training data (http://bit.ly/340jDyc) set contains 175 observations classified as red or green. The test data set (http://bit.ly/2L7uhdO) contains 1750 observations classified as either red or green.
 
-#2. Page 52, Ex. 4. Parts A and B only.
-3. (UNDERGRAD ONLY) Download the data set ”College” using this link: http://bit.ly/30C2DMz. This file will be in .csv format. Use this data to answer Ex. 8 on page 54.
-4. The training data (http://bit.ly/340jDyc) set contains 175 observations classified as red or green. The test data set (http://bit.ly/2L7uhdO) con- tains 1750 observations classified as either red or green.
-• Perform k-nearest neighbor classification using the training data with k = 1. Use this model to predict the class of each observtion in the training data set. How many observations were incorrectly classified? Is this good?
-• Again using k = 1, build a classification model with the training data set and use it to classify the observations in the test data set. How many obervations were incorrectly classified? Is this good?
-• (GRAD ONLY) Train a model for for each value of k between 1 and 100. For each model, predict the class of the observations in the trainnig data set and the observations in the test data set. Make a plot of the value of k on the x-axis and the error rate on the y- axis. (This is similar to Figure 2.4 in the book Elements of Statistical Learning) Comment on this graph.
-5. Plot all irises based on their Sepal.Length and Sepal.Width values using different colors for each species.
-6. PerformlineardiscriminantanalysisusingtheirisdatawithonlySepal.Length and Sepal.Width as predictors. Make predictions about the species of each iris and create a confusion matrix for this predictions.
-7. (GRAD ONLY) On the plot produced in part 1, plot the predicted value of species ove ra grid of points using the same color scheme used in part 1.
+##Perform k-nearest neighbor classification using the training data with k = 1. Use this model to predict the class of each observtion in the training data set. How many observations were incorrectly classified? Is this good?
+
+##Again using k = 1, build a classification model with the training data set and use it to classify the observations in the test data set. How many obervations were incorrectly classified? Is this good?
+
+##(GRAD ONLY) 
+Train a model for for each value of k between 1 and 100. For each model, predict the class of the observations in the trainnig data set and the observations in the test data set. Make a plot of the value of k on the x-axis and the error rate on the y- axis. (This is similar to Figure 2.4 in the book Elements of Statistical Learning) Comment on this graph.
+
+#5. Plot all irises based on their Sepal.Length and Sepal.Width values using different colors for each species.
+
+#6. Perform linear discriminant analysis using the iris data with only Sepal.Length and Sepal.Width as predictors. Make predictions about the species of each iris and create a confusion matrix for this predictions.
+
+#7. (GRAD ONLY) On the plot produced in part 1, plot the predicted value of species ove ra grid of points using the same color scheme used in part 1.
