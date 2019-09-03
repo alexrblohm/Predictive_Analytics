@@ -39,13 +39,20 @@ Describe three real-life applications in which classification might be useful. D
 
 1.  We could the predict the preferred food of penguins (fish, pellets, other, I'm not a science guy...). Predictors would be like age, species of penguin, zoo/wild, etc.  We would be interested in both inference and preciction, so I think inference is more important because I would want more information on food preference changing with the different factors.
 
-2. 
+2. Predict if students will pass their graduation tests based on race, income, years in school, or more.  We would want to look at inference to see how these factors affect graduation.
 
-3.
+3. Predicting if a child will pee their pants.  Predictors include age, gender, amount drank (double gulp).  I think we want inference to explore the effects influencing the output.
 
 
 ##B
 Describe three real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.
+
+1. Predicting the amount of shipments of food, predictors are previous day's shipments, holidays, weather, etc.  For accuracy we care more about prediction, we don't need to know much about what affects shipments.
+
+2. Predicting profits given amount sold, company costs, etc.  We would want inference to analyze all the factors and which are important to the business.
+
+3. Predict time it takes to run a marathon given training time, diet factors, height, age, etc.  I'd want to focus on inference to look at the factors and how they affect time.
+
 
 #3. (UNDERGRAD ONLY) 
 Skip
@@ -61,15 +68,80 @@ test <- read.csv("https://www.dropbox.com/s/u6iuxfm4lz8isg6/PA_HW1_test.csv?dl=1
 
 ##Perform k-nearest neighbor classification using the training data with k = 1. Use this model to predict the class of each observtion in the training data set. How many observations were incorrectly classified? Is this good?
 
+```{r}
+library(class)
+knn_fit <- knn(train[c(1, 2)], train[c(1, 2)], cl = train$col, k = 1, prob = T)
+table(knn_fit, train$col)
 
+```
+
+This is overfit because k = 1.  It categorizes perfectly.
 
 ##Again using k = 1, build a classification model with the training data set and use it to classify the observations in the test data set. How many obervations were incorrectly classified? Is this good?
 
+```{r}
+
+knn_fit <- knn(train[c(1, 2)], test[c(1, 2)], cl = train$col, k = 1, prob = T)
+t <- table(knn_fit, test$col)
+
+t[1,2]+t[2,1]
+cat(367+352, "were wrongly classified out of", length(knn_fit), "\n")
+incorrect <- (367+352)/ (length(knn_fit))
+cat("Which is", incorrect, "percent wrong")
+```
+
+This is 2/5 incorrectly classified which seems pretty terrible to me...
+
 ##(GRAD ONLY) 
-Train a model for for each value of k between 1 and 100. For each model, predict the class of the observations in the trainnig data set and the observations in the test data set. Make a plot of the value of k on the x-axis and the error rate on the y- axis. (This is similar to Figure 2.4 in the book Elements of Statistical Learning) Comment on this graph.
+Train a model for for each value of k between 1 and 100. For each model, predict the class of the observations in the training data set and the observations in the test data set. Make a plot of the value of k on the x-axis and the error rate on the y- axis. (This is similar to Figure 2.4 in the book Elements of Statistical Learning) Comment on this graph.
+```{r}
+set.seed(1)
+library(tidyverse)
+k_vec <- c(1:100)
+
+#knn(train[c(1, 2)], test[c(1, 2)], cl = train$col, k = 1, prob = T)
+#knn(train[c(1, 2)], test[c(1, 2)], cl = train$col, k = 2, prob = T)
+
+knn_100_test <- sapply(k_vec, 
+       function(x){
+    output_knn <- knn(train[c(1, 2)], test[c(1, 2)], cl = train$col, k = x, prob = T)
+    table <- table(output_knn, test$col)
+    error <- (table[2]+table[3])/1750
+    return(error)
+        }
+)
+knn_100_train <- sapply(k_vec, 
+       function(x){
+    output_knn <- knn(train[c(1, 2)], train[c(1, 2)], cl = train$col, k = x, prob = T)
+    table <- table(output_knn, train$col)
+    #print(table)
+    error <- (table[2]+table[3])/175
+    return(error)
+        }
+)
+ggplot() + geom_line(aes(x=k_vec, y = knn_100_train, color = "train")) + geom_line(aes(x=k_vec, y= knn_100_test, color = "test"))
+                     
+```
+
+With k from 0 to 10 the model seems to be overfit.  I believe the training and test errors should be pretty similar and we want smaller error rates and those seems to be similar from k = 25 until 100, however the error rate increases around k = 70. 
+
 
 #5. Plot all irises based on their Sepal.Length and Sepal.Width values using different colors for each species.
 
+```{r}
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width))
+p + geom_point(aes(colour = factor(Species)))
+
+```
+
+
 #6. Perform linear discriminant analysis using the iris data with only Sepal.Length and Sepal.Width as predictors. Make predictions about the species of each iris and create a confusion matrix for this predictions.
 
-#7. (GRAD ONLY) On the plot produced in part 1, plot the predicted value of species ove ra grid of points using the same color scheme used in part 1.
+```{r}
+library(MASS)
+lda(iris$Species ~ iris$Sepal.Length + iris$Sepal.Width)
+
+```
+
+
+#7. (GRAD ONLY) On the plot produced in part 1, plot the predicted value of species over a grid of points using the same color scheme used in part 1.
