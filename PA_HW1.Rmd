@@ -4,8 +4,10 @@ author: "Alex Blohm"
 date: "8/30/2019"
 output:
   html_document:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -66,7 +68,8 @@ test <- read.csv("https://www.dropbox.com/s/u6iuxfm4lz8isg6/PA_HW1_test.csv?dl=1
 ```
 
 
-##Perform k-nearest neighbor classification using the training data with k = 1. Use this model to predict the class of each observtion in the training data set. How many observations were incorrectly classified? Is this good?
+## K-nearest
+Perform k-nearest neighbor classification using the training data with k = 1. Use this model to predict the class of each observtion in the training data set. How many observations were incorrectly classified? Is this good?
 
 ```{r}
 library(class)
@@ -75,9 +78,10 @@ table(knn_fit, train$col)
 
 ```
 
-This is overfit because k = 1.  It categorizes perfectly.
+No observations were incorrectly classified.  This is bad, this is overfit because k = 1.  It categorizes perfectly.
 
-##Again using k = 1, build a classification model with the training data set and use it to classify the observations in the test data set. How many obervations were incorrectly classified? Is this good?
+##Again using k = 1, 
+build a classification model with the training data set and use it to classify the observations in the test data set. How many obervations were incorrectly classified? Is this good?
 
 ```{r}
 
@@ -88,6 +92,7 @@ t[1,2]+t[2,1]
 cat(367+352, "were wrongly classified out of", length(knn_fit), "\n")
 incorrect <- (367+352)/ (length(knn_fit))
 cat("Which is", incorrect, "percent wrong")
+
 ```
 
 This is 2/5 incorrectly classified which seems pretty terrible to me...
@@ -126,22 +131,38 @@ ggplot() + geom_line(aes(x=k_vec, y = knn_100_train, color = "train")) + geom_li
 With k from 0 to 10 the model seems to be overfit.  I believe the training and test errors should be pretty similar and we want smaller error rates and those seems to be similar from k = 25 until 100, however the error rate increases around k = 70. 
 
 
-#5. Plot all irises based on their Sepal.Length and Sepal.Width values using different colors for each species.
+#5. 
+Plot all irises based on their Sepal.Length and Sepal.Width values using different colors for each species.
 
 ```{r}
-p <- ggplot(iris, aes(Sepal.Length, Sepal.Width))
-p + geom_point(aes(colour = factor(Species)))
-
+p <- ggplot(iris, aes(x = Sepal.Length, y= Sepal.Width, color = Species)) + geom_point()
+p
 ```
 
 
-#6. Perform linear discriminant analysis using the iris data with only Sepal.Length and Sepal.Width as predictors. Make predictions about the species of each iris and create a confusion matrix for this predictions.
+#6. 
+Perform linear discriminant analysis using the iris data with only Sepal.Length and Sepal.Width as predictors. Make predictions about the species of each iris and create a confusion matrix for this predictions.
 
 ```{r}
 library(MASS)
-lda(iris$Species ~ iris$Sepal.Length + iris$Sepal.Width)
+lda_fit <- lda(Species ~ Sepal.Length + Sepal.Width, data=iris)
+lda_pred <- predict(lda_fit)
+table(iris$Species, lda_pred$class)
 
 ```
 
 
-#7. (GRAD ONLY) On the plot produced in part 1, plot the predicted value of species over a grid of points using the same color scheme used in part 1.
+#7. (GRAD ONLY) 
+On the plot produced in part 1, plot the predicted value of species over a grid of points using the same color scheme used in part 1.
+```{r}
+grid <- expand.grid(seq(min(iris$Sepal.Width), max(iris$Sepal.Width), by = .01), seq(min(iris$Sepal.Length), max(iris$Sepal.Length), by = .01))
+names(grid) <- c("Sepal.Width", "Sepal.Length")
+preds <- predict(lda_fit, grid) 
+boundries <- data.frame(preds$class, grid)
+
+p + geom_point(data=boundries, aes(x = Sepal.Length, y= Sepal.Width, color = preds.class), alpha=.01)
+
+```
+
+
+
