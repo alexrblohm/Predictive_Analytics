@@ -1,0 +1,23 @@
+---
+title: "PA_HW2"
+author: "Alex Blohm"
+date: "9/9/2019"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+
+
+
+
