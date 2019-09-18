@@ -14,7 +14,344 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Homework 2
+Due: Septemeber 20, 2019
 
+#1. Chapter 3, Question 3
+
+Suppose we have a data set with five predictors, X1 = GPA, X2 = IQ, X3 = Gender (1 for Female and 0 for Male), X4 = Interaction between GPA and IQ, and X5 = Interaction between GPA and Gender. The response is starting salary after graduation (in thousands of dollars). Suppose we use least squares to fit the model, and get βˆ0 = 50, βˆ1 = 20 , βˆ 2 = 0 . 07 , βˆ 3 = 35 , βˆ 4 = 0 . 01 , βˆ 5 = − 10 .
+
+##(a) 
+Which answer is correct, and why?
+
+i.
+For a fixed value of IQ and GPA, males earn more on average than females.
+
+ii. 
+For a fixed value of IQ and GPA, females earn more on average than males.
+
+iii. 
+For a fixed value of IQ and GPA, males earn more on average than females provided that the GPA is high enough.
+
+iv. 
+For a fixed value of IQ and GPA, females earn more on average than males provided that the GPA is high enough.
+
+
+
+I believe that iii. is correct because in general females earn 35K more than males (holding all other variables constant), but the interaction term affects this.  If GPA is at least a 3.5, then the interaction term will reverse this (3.5 * -10 = -35), and males will have a higher starting salary on average.
+
+##(b) 
+Predict the salary of a female with IQ of 110 and a GPA of 4.0.
+```{r}
+response <- 50 + 20*4.0 + 0.07*110 + 35*1 + 0.01*110*4.0 + -10*4.0*1; response
+```
+
+
+##(c) 
+True or false: Since the coefficient for the GPA/IQ interaction term is very small, there is very little evidence of an interaction effect. Justify your answer.
+
+IT DEPENDS!!! It depends on lots of things including sample size, I would like to see a p-value and get more information. However looking at the other coefficients I would guess that there is little evidence of an interaction effect; true.
+
+#2. Chapter 3, Question 8
+
+This question involves the use of simple linear regression on the Auto data set.
+
+##(a) 
+Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results. Comment on the output. For example:
+```{r}
+
+fit_lm <- lm(mpg~hp, data = mtcars)
+summary(fit_lm)
+
+```
+
+
+###i. 
+Is there a relationship between the predictor and the response?
+Yes, there is a negative relationship between horsepower and MPG
+
+###ii. 
+How strong is the relationship between the predictor and the response?
+This is significant meaning it is relatively strong with a very tiny p-value.
+
+###iii. 
+Is the relationship between the predictor and the response positive or negative?
+negative
+
+###iv. 
+What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?
+```{r}
+str(fit_lm$coefficients)
+MPG_out <- fit_lm$coefficients[1] + fit_lm$coefficients[1] * 98; MPG_out
+
+```
+
+
+##(b) 
+Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+```{r}
+plot(mtcars$hp, mtcars$mpg, pch=16, col=rainbow(12))
+abline(fit_lm, lwd=3)
+
+```
+
+
+##(c) 
+Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+```{r}
+plot(fit_lm)
+```
+
+Linear does not have the best fit, perhaps a quadratic model would have a better fit.  Also the Maserati Bora seems to have a lot of leverage and appears to be an outlier.
+
+
+#3. Chapter 3, Question
+Undergrad
+
+#4. Chapter 3, Question 13
+In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.
+
+##(a) 
+Using the rnorm() function, create a vector, x, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X.
+```{r}
+set.seed(1)
+x <- rnorm(100,0,1)
+
+```
+
+
+##(b) 
+Using the rnorm() function, create a vector, eps, containing 100 observations drawn from a N(0,0.25) distribution i.e. a normal distribution with mean zero and variance 0.25.
+```{r}
+eps <- rnorm(100, mean=0, sd=sqrt(.25))
+
+```
+
+
+##(c) 
+Using x and eps, generate a vector y according to the model
+
+Y =−1+0.5X+ε. (3.39)
+What is the length of the vector y? What are the values of β0 and β1 in this linear model?
+```{r}
+Y <- -1 + .5*x + eps
+length(Y)
+
+```
+
+$\beta_0 = -1$ and $\beta_1 = 0.5$
+
+##(d) 
+Create a scatterplot displaying the relationship between x and y. Comment on what you observe.
+```{r}
+dat <- data.frame(x,Y)
+dat$Type <-rep("Sim",100)
+p <- ggplot(data = dat, aes(x=x, y=Y)) + geom_point()
+p
+
+```
+
+There is a positive relationshipe between x and Y.  At first glance, it appears to be linear.
+
+##(e) 
+Fit a least squares linear model to predict y using x. Comment on the model obtained. How do βˆ0 and βˆ1 compare to β0 and β1?
+```{r}
+fit_sim <- lm(Y~x)
+sum <- summary(fit_sim)
+#CI for later
+CI_original_b0 <- fit_sim$coefficients[1] + c(-1,1)*qnorm(.975)*sum$coefficients[3]
+CI_original_b1 <- fit_sim$coefficients[2] + c(-1,1)*qnorm(.975)*sum$coefficients[4]
+```
+
+These values are pretty close to the actuals!
+
+##(f) 
+Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() command to create an appropriate legend.
+```{r}
+x_pop <- seq(from = -2,to = 2,length=100)
+Y_pop <- -1 + .5*x_pop
+data <- cbind(x_pop,Y_pop,rep("Population", 100)) %>% as.data.frame()
+names(data) <- c("x", "Y", "Type")
+
+library(varhandle)
+data$x <- unfactor(data$x)
+data$Y <- unfactor(data$Y)
+data2 <- rbind(dat,data) %>% as.data.frame()
+data2$Type <- factor(data2$Type)
+
+ggplot(data2, aes(x=x,y=Y, col=Type, group=Type)) + geom_point(alpha=.5)+ geom_smooth(method = "lm", alpha=.1, se=F)
+
+```
+
+##(g) 
+Now fit a polynomial regression model that predicts y using x and x2. Is there evidence that the quadratic term improves the model fit? Explain your answer.
+
+```{r}
+library(car)
+fit_sim2 <- lm(Y~x+I(x^2))
+summary(fit_sim2)
+Anova(fit_sim2)
+anova(fit_sim,fit_sim2)
+```
+
+Looking at the ANOVA table, adding the $x^2$ term does seem to improve the fit (p-value < 0.05).
+
+##(h) 
+Repeat (a)–(f) after modifying the data generation process in such a way that there is less noise in the data. The model (3.39) should remain the same. You can do this by decreasing the variance of the normal distribution used to generate the error term ε in (b). Describe your results.
+
+```{r}
+set.seed(1)
+x <- rnorm(100,0,1)
+
+eps <- rnorm(100, mean=0, sd=sqrt(.01))
+Y <- -1 + .5*x + eps
+
+dat <- data.frame(x,Y)
+dat$Type <-rep("Sim",100)
+p <- ggplot(data = dat, aes(x=x, y=Y)) + geom_point()
+p
+```
+
+Fit a least squares linear model to predict y using x. Comment on the model obtained. How do βˆ0 and βˆ1 compare to β0 and β1?
+```{r}
+fit_sim <- lm(Y~x)
+fit_sim$coefficients
+sum <- summary(fit_sim)
+#CI for later
+CI_lessNoise_b0 <- fit_sim$coefficients[1] + c(-1,1)*qnorm(.975)*sum$coefficients[3]
+CI_lessNoise_b1 <- fit_sim$coefficients[2] + c(-1,1)*qnorm(.975)*sum$coefficients[4]
+
+```
+
+Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() command to create an appropriate legend.
+```{r}
+
+Y_pop <- -1 + .5*x
+data <- cbind(x,Y_pop,rep("Population", 100)) %>% as.data.frame()
+names(data) <- c("x", "Y", "Type")
+
+library(varhandle)
+data$x <- unfactor(data$x)
+data$Y <- unfactor(data$Y)
+data2 <- rbind(dat,data) %>% as.data.frame()
+
+
+ggplot(data2, aes(x=x,y=Y, col=Type, group=Type)) + geom_point(alpha=.5)+ geom_smooth(method = "lm", alpha=.1, se=F)
+
+```
+
+Points seem to be tighter and closer to the linear model
+
+##(i) 
+Repeat (a)–(f) after modifying the data generation process in such a way that there is more noise in the data. The model (3.39) should remain the same. You can do this by increasing the variance of the normal distribution used to generate the error term ε in (b). Describe your results.
+
+```{r}
+set.seed(1)
+x <- rnorm(100,0,1)
+
+eps <- rnorm(100, mean=0, sd=sqrt(5))
+Y <- -1 + .5*x + eps
+
+dat <- data.frame(x,Y)
+dat$Type <-rep("Sim",100)
+p <- ggplot(data = dat, aes(x=x, y=Y)) + geom_point()
+p
+```
+
+Fit a least squares linear model to predict y using x. Comment on the model obtained. How do βˆ0 and βˆ1 compare to β0 and β1?
+```{r}
+fit_sim <- lm(Y~x)
+fit_sim$coefficients
+sum <- summary(fit_sim)
+#CI for later
+CI_Noisy_b0 <- fit_sim$coefficients[1] + c(-1,1)*qnorm(.975)*sum$coefficients[3]
+CI_Noisy_b1 <- fit_sim$coefficients[2] + c(-1,1)*qnorm(.975)*sum$coefficients[4]
+
+```
+
+Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() command to create an appropriate legend.
+```{r}
+
+Y_pop <- -1 + .5*x
+data <- cbind(x,Y_pop,rep("Population", 100)) %>% as.data.frame()
+names(data) <- c("x", "Y", "Type")
+
+library(varhandle)
+data$x <- unfactor(data$x)
+data$Y <- unfactor(data$Y)
+data2 <- rbind(dat,data) %>% as.data.frame()
+
+
+ggplot(data2, aes(x=x,y=Y, col=Type, group=Type)) + geom_point(alpha=.5)+ geom_smooth(method = "lm", alpha=.1, se=F)
+
+```
+
+##(j) 
+What are the confidence intervals for β0 and β1 based on the original data set, the noisier data set, and the less noisy data set? Comment on your results.
+```{r}
+Original <- c(CI_original_b0, CI_original_b1) 
+Less_Noisy <- c(CI_lessNoise_b0,CI_lessNoise_b1) 
+Noisy <- c(CI_Noisy_b0,CI_Noisy_b1)
+Original
+Less_Noisy
+Noisy
+```
+
+As predicted the amount of noise affects the width of the confidence intervals.  The most noise yields the largest confidence intervals.
+
+
+#5. Chapter 3, Question 15
+This problem involves the Boston data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+##(a) 
+For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
+
+##(b) 
+Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0 : βj = 0?
+
+##(c) 
+How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the x-axis, and the multiple regression coefficients from (b) on the y-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regres- sion model is shown on the x-axis, and its coefficient estimate in the multiple linear regression model is shown on the y-axis.
+
+##(d) 
+Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor X, fit a model of the form
+
+Y = β0 +β1X +β2X2 +β3X3 +ε.
+
+#6. Chapter 5, Question 2
+We will now derive the probability that a given observation is part of a bootstrap sample. Suppose that we obtain a bootstrap sample from a set of n observations.
+
+##(a) 
+What is the probability that the first bootstrap observation is not the jth observation from the original sample? Justify your answer.
+
+##(b) 
+What is the probability that the second bootstrap observation is not the jth observation from the original sample?
+
+##(c) 
+Argue that the probability that the jth observation is not in the bootstrap sample is (1 − 1/n)n.
+
+##(d) 
+When n = 5, what is the probability that the jth observation is in the bootstrap sample?
+
+##(e) 
+When n = 100, what is the probability that the jth observation is in the bootstrap sample?
+
+##(f) 
+When n = 10, 000, what is the probability that the jth observa- tion is in the bootstrap sample?
+
+##(g) 
+Create a plot that displays, for each integer value of n from 1 to 100,000, the probability that the jth observation is in the bootstrap sample. Comment on what you observe.
+
+#7. Chapter 5, Question 3
+
+Undergrad
+
+#8. Choose one of these two: Chapter 5, Question 7 OR Chapter 5, Question 8 (skip part d)
+
+#9. (UNDERGRAD ONLY)
+
+#10. 
+
+(GRAD ONLY) Write your own function that performs discriminant analysis when p=1, but replace the normal distribution with a Laplace distribution. Now perform classification on the iris data (excluding the species setosa from the analysis) using sepal width as the only predictor. Compare the classification of LDA (when using the normal distribution) to the classification when using the Laplace distribution. How does the decision boundary change when using a laplace distribution as compared to a normal distribution?
 
 
 
