@@ -602,6 +602,8 @@ for (i in 1:100){
 data <- data.frame(iris2$Sepal.Width, iris2$Species, test)
 ggplot(data, aes(x=iris2.Sepal.Width, y=0, fill = iris2.Species, col=test))+geom_point(shape=21, size=3)
 
+#a graph with more info
+ggplot(data, aes(x=iris2.Sepal.Width, y=0, fill = iris2.Species, col=test))+geom_point(position = position_jitter(width =.1, height = .01), alpha= .8, shape=21, size=5) + scale_y_continuous(limits =c(-0.1,1)) 
 ```
 
 
@@ -610,6 +612,9 @@ lda_fit <- lda(iris2$Species~iris2$Sepal.Width)
 pred <- predict(lda_fit, iris2)
 iris2$pred <- pred$class
 ggplot(iris2, aes(x=Sepal.Width, y=0, fill = Species, col=pred))+geom_point(shape=21, size=3)
+
+#a more realistic plot:
+ggplot(iris2, aes(x=Sepal.Width, y=0, fill = Species, col=pred))+geom_point(position = position_jitter(width =.1, height = .01), alpha= .8, shape=21, size=5) + scale_y_continuous(limits =c(-0.1,1))
 ```
 
 After ALL THIS MADNESS!!! I think that I am showing the boundaries are the same (at least for this example).

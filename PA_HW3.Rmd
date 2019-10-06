@@ -1,0 +1,408 @@
+---
+title: "PA_HW3"
+author: "Alex Blohm"
+date: "9/26/2019"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Libraries
+```{r}
+library(ISLR)
+library(caret)
+library(tidyverse)
+library(glmnet)
+library(pls)
+library(MASS)
+library(leaps)
+library(gam)
+library(reshape2)
+```
+
+
+#1. 
+Chapter 6, Question 4
+Suppose we estimate the regression coefficients in a linear regression model by minimizing
+
+for a particular value of λ. For parts (a) through (e), indicate which of i. through v. is correct. Justify your answer.
+
+##(a) 
+As we increase λ from 0, the training RSS will:
+iii. Steadily increase.
+
+##(b) 
+Repeat (a) for test RSS. 
+ii. Decrease initially, and then eventually start increasing in a U shape.
+
+##(c) Repeat (a) for variance.
+iv. Steadily decrease.
+
+##(d) 
+Repeat (a) for (squared) bias.
+iii. Steadily increase.
+
+##(e) 
+Repeat (a) for the irreducible error.
+v. Remain constant.
+
+#2. 
+Chapter 6, Question 5 (Graduate Only)
+ It is well-known that ridge regression tends to give similar coefficient values to correlated variables, whereas the lasso may give quite different coefficient values to correlated variables. We will now explore this property in a very simple setting.
+
+Suppose that n = 2, p = 2, x11 = x12, x21 = x22. Furthermore, suppose that y1+y2 =0 and x11+x21 =0 and x12+x22 =0,so that the estimate for the intercept in a least squares, ridge regression, or lasso model is zero: βˆ0 = 0.
+
+##(a) 
+Write out the ridge regression optimization problem in this setting.
+$$ (y_1 - \beta_1x_{11} - \beta_2x_{12})^2 + (y_2 - \beta_1x_{21} - \beta_2x_{12})^2 + \lambda(\beta_1^2 + \beta_2^2)$$
+
+##(b) 
+Argue that in this setting, the ridge coefficient estimates satisfy βˆ1 = βˆ2.
+Taking the partial derivatives:
+$$ \frac{\partial}{\partial \beta_1} = -2(y_1 - \beta_1x_{11} -\beta_2  x_{12}) - 2(y_2 - \beta_1x_{21} -\beta_2x_{12}) + 2\lambda\beta_1^2 = 0$$
+
+$$ \iff -2y_1 + 2\beta_1x_{11} + 2\beta_2x_{12} - 2y_2 + 2\beta_1x_{21} + 2\beta_2x_{12} + 2\lambda\beta_1^2 = 0$$
+
+$$ \iff -(y_1 + y_2) + \beta_1(x_{11} + x_{21}) + \beta_2(x_{12}  + x_{12}) + \lambda\beta_1^2 = 0$$
+
+$$ \iff \lambda\beta_1^2 = 0$$
+
+The same methods will yield
+$$\lambda\beta_2^2 = 0$$
+
+So these values will approach 0 at the same rate (depending on $\lambda$).
+
+##(c) 
+Write out the lasso optimization problem in this setting.
+$$ (y_1 - \beta_1x_{11} - \beta_2x_{12})^2 + (y_2 - \beta_1x_{21} - \beta_2x_{12})^2 + \lambda(|\beta_1| + |\beta_2)|$$
+
+$$ (y_1 - \beta_1x_{11} - \beta_2x_{12})^2 + (y_2 - \beta_1x_{21} - \beta_2x_{12})^2 + \lambda\sqrt{\beta_1}^2 + \lambda\sqrt{\beta_2}^2$$
+
+##(d) 
+Argue that in this setting, the lasso coefficients βˆ1 and βˆ2 are not unique—in other words, there are many possible solutions to the optimization problem in (c). Describe these solutions.
+
+$$ \frac{\partial}{\partial \beta_1} = -2(y_1 - \beta_1x_{11} - \beta_2x_{12}) - 2(y_2 - \beta_1x_{21} - \beta_2x_{12}) + \frac{\lambda}{\sqrt{\beta_1}} = 0$$
+$$ \frac{\lambda\beta_1}{\sqrt{\beta_1^2}} = 0$$
+$$ \frac{\lambda\beta_1}{{\beta_1}} = 0$$
+$$ \lambda = 0$$
+
+A similar argument will be made for the other partial derivative, thus leading to many different solutions to the optimization (because minimizing does not depend on the estimates for betas).
+
+#3. 
+Chapter 6, Question 9
+In this exercise, we will predict the number of applications received using the other variables in the College data set.
+
+##(a) 
+Split the data set into a training set and a test set.
+```{r}
+
+index <- createDataPartition(College$Apps, p = .80, list = F)
+College2 <- College %>% mutate(Private = as.integer(Private)) - 1
+training_col <- College2[index,] 
+testing_col <- College2[-index,]
+
+```
+
+##(b) 
+Fit a linear model using least squares on the training set, and report the test error obtained.
+```{r}
+lm_col <- lm(Apps~., data = training_col)
+pred_lm <- predict(lm_col, newdata = testing_col)
+mean((testing_col$Apps- pred_lm)^2)
+```
+
+
+##(c) Attempt 1 (Failure) 
+I gave up on doing this the hard way, but here is what I tried:
+########################################################################################################
+Fit a ridge regression model on the training set, with λ chosen by cross-validation. Report the test error obtained.
+
+
+Create folds
+set.seed(1) #because I'm boring
+training_col$fold_index <- createFolds(training_col$Apps, k=8, list = F)
+pred <- list()
+
+Make Private 1 for yes, 0 for no
+training_col$Private <- as.integer(training_col$Private)-1
+
+lam <- seq(0,1000, 1)
+
+for (i in 1:8){
+x <- as.matrix(training_col %>% filter(fold_index != i) %>% select(-c("Apps", "fold_index")))
+y <- as.matrix(training_col %>% filter(fold_index != i)  %>% select("Apps"))
+Ridge_fit <- rep(NA, 8)
+Ridge_fit <- glmnet(x,y, alpha = 0, lambda = lam)
+
+pred[[i]] <- predict(Ridge_fit, newx = as.matrix(training_col %>% filter(fold_index == i) %>% select(-c("Apps", "fold_index"))))
+}
+pred_all <- do.call(rbind,pred) %>% as.data.frame()
+
+training_col <- training_col %>% rownames_to_column() %>% dplyr::arrange(fold_index)
+
+pred_all$rownames = training_col$rowname
+
+pred_all <- pred_all %>% dplyr::arrange(rownames)
+training_col <- training_col %>% dplyr::arrange(rowname)
+
+pred_all <- pred_all[order(row.names(pred_all)),] #%>% dplyr::arrange(rownames)
+training_col <- training_col[order(row.names(training_col)),]  #%>% dplyr::arrange(rowname)
+pred_all$rownames == training_col$rowname
+
+mse <- apply((pred_all %>% select(-"rownames")), 2, function(x){
+  out <- sum((x - training_col$Apps)^2) / nrow(training_col)
+})
+results <- data.frame(lambda = lam, mse)
+
+row <- which(results$mse == min(results$mse))
+
+lambda <- results[row,1]
+ggplot(results, aes(x=lambda, y = mse)) + geom_point() + geom_vline(xintercept = lambda, col = "red")
+
+
+Fitting with my new lambda
+
+College$Private <- as.integer(College$Private) - 1
+x <- as.matrix(College %>% select(-"Apps"))
+y <- as.matrix(College %>% select("Apps"))
+Ridge_fit <- glmnet(x,y, alpha = 0, lambda = lambda)
+
+########################################################################################################
+
+##(c) My answer
+```{r}
+X <- as.matrix(training_col %>% dplyr::select(-'Apps'))
+Y <- training_col %>% dplyr::select("Apps") %>% as.matrix()
+fit_Ridge <- cv.glmnet(x = X,
+          y = Y,
+          nfolds = 8,
+          alpha = 0)
+min_lamd <- fit_Ridge$lambda.min
+
+Ridge_fit <- glmnet(X,Y, alpha = 0, lambda = min_lamd)
+
+xnew <- as.matrix(testing_col %>% dplyr::select(-"Apps"))
+
+pred_Ridge <- predict(Ridge_fit, s=min_lamd, newx = xnew)
+mean((pred_Ridge-testing_col$Apps)^2)
+
+```
+
+
+##(d) 
+Fit a lasso model on the training set, with λ chosen by cross-validation. Report the test error obtained, along with the number of non-zero coefficient estimates.
+```{r}
+fit_lasso <- cv.glmnet(x = X,
+          y = Y,
+          nfolds = 8,
+          alpha = 1)
+min_lamdLas <- fit_lasso$lambda.min
+
+Lasso_fit <- glmnet(X,Y, alpha = 1, lambda = min_lamd)
+
+xnew <- as.matrix(testing_col %>%  dplyr::select(-"Apps"))
+
+pred_lasso <- predict(Lasso_fit, newx = xnew)
+mean((pred_lasso-testing_col$Apps)^2)
+```
+
+
+##(e) 
+Fit a PCR model on the training set, with M chosen by cross-validation. Report the test error obtained, along with the value of M selected by cross-validation.
+```{r}
+
+pcr_fit <- pcr(Apps~., data = training_col, scale = TRUE, validation = "CV")
+validationplot(pcr_fit ,val.type="MSEP")
+pred_pcr <- predict(pcr_fit, newdata = testing_col, ncomp = 5)
+mean((pred_pcr-testing_col$Apps)^2)
+```
+
+
+##(f) 
+Fit a PLS model on the training set, with M chosen by cross-validation. Report the test error obtained, along with the value of M selected by cross-validation.
+```{r}
+pls_fit <- plsr(Apps~., data = training_col, scale = TRUE, validation = "CV")
+
+validationplot(pls_fit ,val.type="MSEP")
+
+pred_pls <- predict(pls_fit, newdata = testing_col, ncomp = 5)
+mean((pred_pls-testing_col$Apps)^2)
+```
+
+
+##(g) 
+Comment on the results obtained. How accurately can we predict the number of college applications received? Is there much difference among the test errors resulting from these five approaches?
+
+It's surprising how well the linear model did in this situation, with LASSO and PCR doing the worst.  BUT there aren't that many predictors, so I guess it's not that surpsising because there isn't as much need to reduce p.
+
+#4. 
+Do Chapter 6, Question 9 using an elastic net model (Graduate Only) 
+```{r}
+
+fit_elastic <- train(Apps ~ ., data = training_col, method = "glmnet", trControl = trainControl("cv", number = 8), tuneLength = 10)
+
+lambda <- fit_elastic$bestTune[[2]]
+
+Elastic_fit <- glmnet(X,Y, alpha = 1, lambda = lambda)
+
+xnew <- as.matrix(testing_col %>%  dplyr::select(-"Apps"))
+
+pred_Elastic <- predict(Elastic_fit, newx = xnew)
+mean((pred_Elastic-testing_col$Apps)^2)
+
+```
+
+
+##5. 
+Chapter 7, Question 10
+This question relates to the College data set.
+
+##(a) 
+Split the data into a training set and a test set. Using out-of-state tuition as the response and the other variables as the predictors, perform forward stepwise selection on the training set in order to identify a satisfactory model that uses just a subset of the predictors.
+
+```{r}
+
+leap <- train(Outstate ~ ., data = training_col, method = "leapForward", trControl = trainControl("cv", number = 8), tuneLength = 10)
+
+leap$bestTune
+summary(leap$finalModel)
+
+lm_forward_Best <- lm(Outstate ~ Private + Apps + Accept + F.Undergrad + Room.Board + Personal + Terminal + S.F.Ratio + perc.alumni + Expend + Grad.Rate, data=training_col)
+
+```
+
+
+##(b) 
+Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in the previous step as the predictors. Plot the results, and explain your findings.
+```{r}
+
+gam_fit <- gam(Outstate ~ Private + s(Apps, df = 11) + s(Accept, df = 11) + s(F.Undergrad, df = 11) + s(Room.Board, df = 11) + s(Personal, df = 11) + s(Terminal, df = 11) + s(S.F.Ratio, df = 11) + s(perc.alumni, df = 11) + s(Expend, df = 11) + s(Grad.Rate, df = 11), data=training_col)
+
+summary(gam_fit)
+plot(gam_fit, se=T)
+
+```
+
+
+##(c) 
+Evaluate the model obtained on the test set, and explain the results obtained.
+```{r}
+pred_gam <- predict(gam_fit, newdata = testing_col)
+
+mean((pred_gam-testing_col$Outstate)^2)
+plot(pred_gam, testing_col$Outstate)
+
+```
+
+This seems pretty terrible compared to the earlier estimates.
+
+
+##(d) 
+For which variables, if any, is there evidence of a non-linear relationship with the response?
+Expend and Accept seem most non-linear!
+
+#6. 
+Chapter 7, Question 11 (Graduate Only)
+
+In Section 7.7, it was mentioned that GAMs are generally fit using a backfitting approach. The idea behind backfitting is actually quite simple. We will now explore backfitting in the context of multiple linear regression.
+Suppose that we would like to perform multiple linear regression, but we do not have software to do so. Instead, we only have software to perform simple linear regression. Therefore, we take the following iterative approach: we repeatedly hold all but one coefficient estimate fixed at its current value, and update only that coefficient estimate using a simple linear regression. The process is continued until convergence—that is, until the coefficient estimates stop changing.
+We now try this out on a toy example.
+
+##(a) 
+Generate a response Y and two predictors X1 and X2, with n = 100.
+```{r}
+set.seed(1)
+x1<-rnorm(100,.1)
+x2<-rnorm(100,.3)
+y<-rnorm(100,.2)
+```
+
+
+##(b) 
+Initialize βˆ1 to take on a value of your choice. It does not matter what value you choose.
+```{r}
+beta1 <- 8675309
+```
+
+
+##(c) 
+Keeping βˆ1 fixed, fit the model
+Y − βˆ 1 X 1 = β 0 + β 2 X 2 + ε .
+You can do this as follows:
+```{r}
+beta2 <- summary(lm(y-beta1*x1 ~ x2))$coef[2]
+```
+
+##(d) 
+Keeping βˆ2 fixed, fit the model
+Y − βˆ 2 X 2 = β 0 + β 1 X 1 + ε .
+You can do this as follows:
+
+```{r}
+summary(lm(y-beta2*x2 ~ x1))$coef[2]
+```
+
+##(e) 
+Write a for loop to repeat (c) and (d) 1,000 times. Report the estimates of βˆ0, βˆ1, and βˆ2 at each iteration of the for loop. Create a plot in which each of these values is displayed, with βˆ0, βˆ1, and βˆ2 each shown in a different color.
+```{r}
+
+n<-1000
+beta1 = c(1, rep(NA, n-1))
+beta2 = rep(NA, n)
+beta0 = rep(NA, n)
+
+for(i in 1:n){
+  beta2[i] <- summary(lm(y-beta1[i]*x1 ~ x2))$coef[2]
+  beta1[i+1] <- summary(lm(y-beta2[i]*x2 ~ x1))$coef[2]
+  beta0[i] <- summary(lm(y-beta2[i]*x2 ~ x1))$coef[1]
+}
+data <- data.frame(beta0, beta1 = beta1[1:1000], beta2) %>% melt() %>% mutate(x = rep(c(1:1000),3))
+
+p <- ggplot(data, aes(x=x, y=value, group = variable, col=variable)) + 
+  geom_line() +
+  ggtitle("Backfitting") +
+  ylab("estimates") +
+  xlab("iterations")
+par(mfrow = c(2,1))
+p
+p2 <- p + scale_y_continuous(lim = c(-1,1)); p2
+
+```
+
+
+##(f) 
+Compare your answer in (e) to the results of simply performing multiple linear regression to predict Y using X1 and X2. Use the abline() function to overlay those multiple linear regression coefficient estimates on the plot obtained in (e).
+```{r}
+lm_fit<-lm(y~x1+x2)
+p2 + geom_hline(yintercept = lm_fit$coefficients[1], linetype = "dashed") +
+  geom_hline(yintercept = lm_fit$coefficients[2], linetype = "dashed") +
+  geom_hline(yintercept = lm_fit$coefficients[3], linetype = "dashed")
+
+```
+
+
+##(g) 
+On this data set, how many backfitting iterations were required in order to obtain a “good” approximation to the multiple regression coefficient estimates?
+
+3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
